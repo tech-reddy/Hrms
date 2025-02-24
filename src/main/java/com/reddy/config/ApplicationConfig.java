@@ -1,7 +1,7 @@
 package com.reddy.config;
 
 import com.reddy.model.employee.Employee;
-import com.reddy.repository.employee.EmployeeRepository;
+import com.reddy.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -11,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @AllArgsConstructor
 public class ApplicationConfig {
-    private final EmployeeRepository employeeRepository;
+    private final UserRepository employeeRepository;
     @Bean
     public ModelMapper modelMapper() {
         Converter<Employee, String> fullNameConverter = ctx ->
@@ -30,7 +29,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> employeeRepository.findByUsername(username)
+        return username -> employeeRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 

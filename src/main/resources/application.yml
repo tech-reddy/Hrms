@@ -23,3 +23,12 @@ spring:
     user:
       name: admin
       password: admin
+logging:
+  level:
+    org:
+        springframework:
+            security: DEBUG
+            web:
+            filter: DEBUG
+  #logging.level.org.springframework.security=DEBUG
+  #logging.level.org.springframework.web.filter=DEBUG
