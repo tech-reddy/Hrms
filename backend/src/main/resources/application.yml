@@ -15,10 +15,10 @@ spring:
   application:
     name: Hrms
   mail:
-    host: smtp.gmail.com
+    host: smtp.yourmaildomain.com
     port: 587
-    username: kishorreddy.ds1508@gmail.com
-    password: dkegezczoccwoxzx
+    username: yourmail@gmail.com
+    password: yourappmailpassowrd
     properties:
       mail:
         smtp:
