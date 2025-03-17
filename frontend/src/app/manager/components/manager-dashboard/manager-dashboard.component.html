@@ -1,0 +1,86 @@
+<!-- dashboard.component.html -->
+<div class="dashboard-container">
+  <!-- Enhanced Navbar -->
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="assets/logo.png" alt="Logo" width="40" class="me-2 d-inline-block align-text-top">
+        HRMS Dashboard
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item" *ngFor="let item of navItems">
+            <a class="nav-link" [routerLink]="item.link" routerLinkActive="active">
+              <i [class]="item.icon"></i> {{ item.title }}
+            </a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center text-white">
+          <i class="fas fa-user-circle me-2"></i>
+          {{ currentUser }}
+          <button class="btn btn-outline-light btn-sm ms-3" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav> -->
+
+  <!-- Animated Dashboard Cards -->
+  <div class="container">
+    <div class="row g-4">
+      <div *ngFor="let metric of metrics; let i = index" 
+           class="col-12 col-sm-6 col-xl-3"
+           [@cardAnimation]="{value: '', params: {delay: i * 100}}">
+        <div class="metric-card card h-100 shadow hover-effect"
+             [ngClass]="'metric-' + metric.type">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="card-title text-uppercase text-muted mb-2">{{ metric.title }}</h5>
+                <h2 class="mb-0">{{ metric.value | number }}</h2>
+              </div>
+              <div class="icon-circle">
+                <i [class]="metric.icon"></i>
+              </div>
+            </div>
+            <div *ngIf="metric.progress" class="mt-3">
+              <div class="progress progress-sm">
+                <div class="progress-bar" [ngStyle]="{width: metric.progress + '%'}"></div>
+              </div>
+              <small class="text-muted">{{ metric.description }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row mt-4 g-4">
+      <div class="col-12 col-lg-6" [@fadeIn]>
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Employee Distribution</h5>
+          </div>
+          <div class="card-body">
+            <div echarts [options]="departmentChart" class="chart-container"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-12 col-lg-6" [@fadeIn]>
+        <div class="card shadow">
+          <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Attendance Trend</h5>
+          </div>
+          <div class="card-body">
+            <div echarts [options]="attendanceChart" class="chart-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

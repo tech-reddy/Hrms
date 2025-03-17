@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h2>My Payroll History</h2>
+  
+  <div class="accordion" id="payrollAccordion">
+    <div *ngFor="let payroll of payrolls" class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" 
+                data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + payroll.id">
+          {{payroll.payPeriodStart | date}} - {{payroll.payPeriodEnd | date}} 
+          <span class="badge ms-2" [ngClass]="statusBadgeClass(payroll.paymentStatus)">
+            {{payroll.paymentStatus}}
+          </span>
+        </button>
+      </h2>
+      <div [id]="'collapse' + payroll.id" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6>Gross Earnings: {{payroll.grossEarnings | currency}}</h6>
+              <h6>Total Deductions: {{payroll.totalDeductions | currency}}</h6>
+              <h5 class="mt-3">Net Salary: {{payroll.netSalary | currency}}</h5>
+            </div>
+            <div class="col-md-6">
+              <h6>Earnings</h6>
+              <ul class="list-group">
+                <li *ngFor="let detail of payroll.details | filter:'EARNING':'componentType'"
+                    class="list-group-item d-flex justify-content-between">
+                  <span>{{detail.componentName}}</span>
+                  <span class="text-success">{{detail.amount | currency}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

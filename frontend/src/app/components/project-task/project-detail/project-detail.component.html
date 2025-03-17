@@ -1,0 +1,75 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>{{project.name}}</h2>
+    <button class="btn btn-outline-secondary" (click)="isEditing = !isEditing">
+      {{isEditing ? 'Cancel' : 'Edit'}}
+    </button>
+  </div>
+
+  <div *ngIf="!isEditing">
+    <p>{{project.description}}</p>
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Details</h5>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <strong>Start Date:</strong> {{project.startDate | date}}
+          </li>
+          <li class="list-group-item">
+            <strong>End Date:</strong> {{project.endDate | date}}
+          </li>
+          <li class="list-group-item">
+            <strong>Status:</strong> 
+            <span class="badge" [ngClass]="statusBadgeClass(project.status)">
+              {{project.status}}
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-8">
+        <h5>Team Members</h5>
+        <div class="row">
+          <div *ngFor="let member of project?.assignedEmployees" class="col-md-4 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">{{member.firstName}} {{member.lastName}}</h6>
+                <p class="card-text text-muted">{{member.designation}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form *ngIf="isEditing" [formGroup]="editForm" (ngSubmit)="saveChanges()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Project Name</label>
+        <input type="text" class="form-control" formControlName="name">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Status</label>
+        <select class="form-select" formControlName="status">
+          <option *ngFor="let status of projectStatuses" [value]="status">{{status}}</option>
+        </select>
+      </div>
+      <div class="col-12">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" formControlName="description" rows="3"></textarea>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">End Date</label>
+        <input type="date" class="form-control" formControlName="endDate">
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <h4 class="mt-4">Project Tasks</h4>
+  <app-task-list [tasks]="project.tasks || []"></app-task-list>
+</div>

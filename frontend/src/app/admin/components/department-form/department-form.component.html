@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ department ? 'Edit' : 'Create' }} Department</h5>
+  <button type="button" class="btn-close" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="form">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" formControlName="name">
+      <div *ngIf="form.get('name')?.invalid" class="text-danger">
+        Department name is required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Code</label>
+      <input type="text" class="form-control" formControlName="code">
+      <div *ngIf="form.get('code')?.invalid" class="text-danger">
+        Code must be 2-5 uppercase letters
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Manager</label>
+      <select class="form-select" formControlName="managerId">
+        <option [value]="null">No Manager</option>
+        <option *ngFor="let emp of employees" [value]="emp.id">
+          {{ emp.firstName }} {{ emp.lastName }}
+        </option>
+      </select>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancel</button>
+  <button type="button" class="btn btn-primary" 
+          (click)="onSubmit()" >
+    {{ department ? 'Update' : 'Create' }}
+  </button>
+</div>

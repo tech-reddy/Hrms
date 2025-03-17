@@ -1,0 +1,91 @@
+<!-- employee-attendance.component.html -->
+<div class="container py-5" @fadeInOut>
+  <!-- Current Attendance Card -->
+  <div class="card shadow-lg mb-4 animate__animated animate__fadeIn">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Today's Attendance</h4>
+    </div>
+    <div class="card-body">
+      <div *ngIf="currentAttendance" class="row">
+        <div class="col-md-4 mb-3">
+          <h5>Check-In Time</h5>
+          <p class="lead">{{ currentAttendance.checkIn?  (currentAttendance.checkIn | date:'shortTime'): 'Not checked in' }}</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Check-Out Time</h5>
+          <p class="lead">{{ currentAttendance.checkOut? (currentAttendance.checkOut | date:'shortTime') : 'Not checked out' }}</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Total Hours</h5>
+          <p class="lead">{{ currentAttendance.totalHours || '0' }} hrs</p>
+        </div>
+      </div>
+      
+      <div class="d-grid gap-2 d-md-flex justify-content-center">
+        <button class="btn btn-success btn-lg px-5" 
+                (click)="onCheckIn()"
+                [disabled]="currentAttendance?.checkIn">
+          <i class="bi bi-box-arrow-in-right me-2"></i>Check In
+        </button>
+        <button class="btn btn-danger btn-lg px-5" 
+                (click)="onCheckOut()"
+                [disabled]="!currentAttendance?.checkIn || currentAttendance?.checkOut">
+          <i class="bi bi-box-arrow-right me-2"></i>Check Out
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- History Section -->
+  <div class="card shadow-lg animate__animated animate__fadeInUp">
+    <div class="card-header bg-info text-white">
+      <h4 class="mb-0">Attendance History</h4>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-5">
+          <input type="date" class="form-control" [(ngModel)]="startDate">
+        </div>
+        <div class="col-md-5">
+          <input type="date" class="form-control" [(ngModel)]="endDate">
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary w-100" 
+                  (click)="loadHistory()"
+                  [disabled]="isLoading">
+            <span *ngIf="!isLoading">Search</span>
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col" *ngFor="let record of history">
+          <div class="card h-100 shadow-sm animate__animated animate__fadeIn">
+            <div class="card-header">
+              {{ record.date | date:'fullDate' }}
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6">
+                  <small class="text-muted">Check In</small>
+                  <p>{{ record.checkIn | date:'shortTime' }}</p>
+                </div>
+                <div class="col-6">
+                  <small class="text-muted">Check Out</small>
+                  <p>{{ record.checkOut? (record.checkOut | date:'shortTime'): '--' }}</p>
+                </div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-success" 
+                     [style.width]="(record.totalHours / 8) * 100 + '%'">
+                  {{ record.totalHours }} hours
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

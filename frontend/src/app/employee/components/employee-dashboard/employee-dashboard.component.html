@@ -1,0 +1,70 @@
+<div class="container-fluid mt-4 animate__animated animate__fadeIn">
+  <!-- Quick Stats Row -->
+  <div class="row mb-4">
+    <!-- Attendance Card -->
+    <div class="col-md-4 mb-3" *ngFor="let stat of quickStats">
+      <div class="card h-100 hover-shadow" [@cardAnimation]>
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="icon-circle bg-primary text-white me-3">
+              <i [class]="stat.icon"></i>
+            </div>
+            <div>
+              <h5 class="card-title mb-0">{{ stat.title }}</h5>
+              <h2 class="mb-0">{{ stat.value }}</h2>
+              <small class="text-muted">{{ stat.subtitle }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Row -->
+  <div class="row">
+    <!-- Announcements Section -->
+    <div class="col-md-8 mb-4">
+      <div class="card h-100" [@slideInLeft]>
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Announcements</h5>
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <a
+              *ngFor="let announcement of announcements"
+              class="list-group-item list-group-item-action flex-column align-items-start"
+            >
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1 text-primary">{{ announcement.title }}</h6>
+                <small>{{ announcement.date | date }}</small>
+              </div>
+              <p class="mb-1">{{ announcement.content }}</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upcoming Holidays -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100" [@slideInRight]>
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">Upcoming Holidays</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li
+              *ngFor="let holiday of upcomingHolidays"
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
+              {{ holiday.name }}
+              <span class="badge bg-primary rounded-pill">{{
+                holiday.date | date
+              }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

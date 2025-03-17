@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/dashboard">
+      <img src="https://www.shutterstock.com/shutterstock/photos/2148867153/display_1500/stock-vector-human-resource-logo-can-be-used-for-company-icon-and-others-2148867153.jpg" alt="Logo" width="40" class="me-2">
+      HRMS
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item" *ngFor="let item of navItems">
+          <a class="nav-link" [routerLink]="item.link">
+            <i [class]="item.icon"></i> {{ item.title }}
+          </a>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center text-white">
+        <i class="fas fa-user-circle me-2"></i> {{ currentUser }}
+        <button class="btn btn-outline-light btn-sm ms-3" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+

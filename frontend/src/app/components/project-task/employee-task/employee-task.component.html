@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3>{{ task.title }}</h3>
+      <span class="badge" [ngClass]="statusBadgeClass(task.status)">
+        {{ task.status }}
+      </span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Details</h5>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>Project:</strong> {{ task.project.name || 'N\A'}}
+            </li>
+            <li class="list-group-item">
+              <strong>Start Date:</strong> {{ task.startDate | date }}
+            </li>
+            <li class="list-group-item">
+              <strong>Due Date:</strong> {{ task.endDate | date }}
+            </li>
+            <li class="list-group-item">
+              <strong>Priority:</strong>
+              <span class="badge ms-2" [ngClass]="priorityBadgeClass(task.priority)">
+                {{ task.priority }}
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h5>Description</h5>
+          <p>{{ task.description || 'No description provided' }}</p>
+
+          <div class="mt-4">
+            <h5>Update Status</h5>
+            <div class="btn-group">
+              <button *ngFor="let status of taskStatuses"
+                      class="btn btn-outline-secondary"
+                      [class.active]="status === task.status"
+                      [disabled]="isUpdatingStatus"
+                      (click)="updateStatus(status)">
+                {{ status }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

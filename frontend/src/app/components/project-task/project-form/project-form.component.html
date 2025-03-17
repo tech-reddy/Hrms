@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2>{{isEditMode ? 'Edit' : 'Create'}} Project</h2>
+  
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Project Name</label>
+        <input type="text" class="form-control" formControlName="name">
+        <div *ngIf="projectForm.get('name')?.invalid" class="text-danger">
+          Name is required
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Project Lead</label>
+        <select class="form-select" formControlName="managerId">
+          <option *ngFor="let emp of employees" [value]="emp.id">
+            {{emp.firstName}} {{emp.lastName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Start Date</label>
+        <input type="date" class="form-control" formControlName="startDate">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">End Date</label>
+        <input type="date" class="form-control" formControlName="endDate">
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" formControlName="description" rows="3"></textarea>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Team Members</label>
+        <select class="form-select" multiple formControlName="assignedEmployeeIds">
+          <option *ngFor="let emp of employees" [value]="emp.id">
+            {{emp.firstName}} {{emp.lastName}}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" [disabled]="projectForm.invalid">
+          {{isEditMode ? 'Update' : 'Create'}} Project
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

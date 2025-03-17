@@ -1,0 +1,92 @@
+<div class="container mt-4">
+  <h2>Apply for Leave</h2>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form (submit)="onSubmit()">
+            <div class="mb-3">
+              <label class="form-label">Leave Type</label>
+              <select class="form-select" [(ngModel)]="leaveRequest.leaveTypeId" name="leaveType" required>
+                <option *ngFor="let type of leaveTypes" [value]="type.id">{{ type.name }}</option>
+              </select>
+            </div>
+            
+            <div class="row mb-3">
+              <div class="col">
+                <label class="form-label">Start Date</label>
+                <input type="date" class="form-control" [(ngModel)]="leaveRequest.startDate" name="startDate" required>
+              </div>
+              <div class="col">
+                <label class="form-label">End Date</label>
+                <input type="date" class="form-control" [(ngModel)]="leaveRequest.endDate" name="endDate" required>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Reason</label>
+              <textarea class="form-control" [(ngModel)]="leaveRequest.reason" name="reason" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Application</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h4>My Leave Applications</h4>
+      <div class="list-group">
+        <div *ngFor="let request of requests" class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h5>{{ request.leaveType }}</h5>
+              <small class="text-muted">
+                {{ request.startDate | date }} - {{ request.endDate | date }}
+              </small>
+              <p class="mb-0">{{ request.reason }}</p>
+            </div>
+            <span class="badge" 
+                  [ngClass]="{
+                    'bg-warning': request.status === 'PENDING',
+                    'bg-success': request.status === 'APPROVED',
+                    'bg-danger': request.status === 'REJECTED'
+                  }">
+              {{ request.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leave Balance Section -->
+  <div class="mt-4">
+    <button class="btn btn-info" (click)="toggleLeaveBalance()">
+      {{ showBalanceTable ? 'Hide' : 'View' }} Leave Balance
+    </button>
+  </div>
+
+  <div *ngIf="showBalanceTable" class="mt-3">
+    <h3>Leave Balance</h3>
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Leave Type</th>
+          <th>Total Days</th>
+          <th>Used Days</th>
+          <th>Remaining Days</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let balance of leaveBalances">
+          <td>{{ balance.leaveType }}</td>
+          <td>{{ balance.totalDays }}</td>
+          <td>{{ balance.usedDays }}</td>
+          <td>{{ balance.remainingDays }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

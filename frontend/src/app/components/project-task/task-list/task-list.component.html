@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between mb-3">
+    <h2></h2>
+    <a (click) = "openNewTaskModal()" class="btn btn-primary">New Task</a>
+  </div>
+
+  <!-- <div class="row mb-3">
+    <div class="col-md-6">
+      <input type="text" class="form-control" placeholder="Search projects..." 
+             [(ngModel)]="searchTerm" (input)="applyFilters()">
+    </div>
+    <div class="col-md-4">
+      <select class="form-select" [(ngModel)]="statusFilter" (change)="applyFilters()">
+        <option value="">All Statuses</option>
+        <option *ngFor="let status of projectStatuses" [value]="status">{{status}}</option>
+      </select>
+    </div> -->
+  </div>
+
+<div class="list-group">
+  <div *ngFor="let task of tasks" class="list-group-item">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h5 class="mb-1">{{task.title}}</h5>
+        <small class="text-muted">
+          {{task.startDate | date}} - {{task.endDate | date}}
+        </small>
+        <span class="badge ms-2" [ngClass]="priorityBadgeClass(task.priority)">
+          {{task.priority}}
+        </span>
+        <span class="badge" [ngClass]="statusBadgeClass(task.status)">
+          {{task.status}}
+        </span>
+      </div>
+      <div *ngIf="showActions">
+        <button class="btn btn-sm btn-outline-secondary me-2" 
+                (click)="openEditModal(task)">
+          Edit
+        </button>
+        <button class="btn btn-sm btn-outline-danger" (click)="deleteTask(task)">
+          Delete
+        </button>
+      </div>
+    </div>
+    <p *ngIf="task.description" class="mt-2 mb-0">{{task.description}}</p>
+    <small class="text-muted">Assigned to: {{task.assignedEmployee.firstName}}</small>
+  </div>
+</div>

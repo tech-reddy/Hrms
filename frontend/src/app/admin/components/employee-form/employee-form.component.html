@@ -1,0 +1,98 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ employee ? "Edit" : "Create" }} Employee</h5>
+  <button
+    type="button"
+    class="btn-close"
+    (click)="activeModal.dismiss()"
+  ></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row g-3">
+      <!-- Personal Info -->
+      <div class="col-md-6">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-control" formControlName="firstName" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Last Name</label>
+        <input type="text" class="form-control" formControlName="lastName" />
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-md-6">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="email" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Phone</label>
+        <input type="tel" class="form-control" formControlName="phone" />
+      </div>
+
+      <!-- Employment Details -->
+      <div class="col-md-4">
+        <label class="form-label">Department</label>
+        <select class="form-select" formControlName="departmentId">
+          <option [value]="null">Select Department</option>
+          <option *ngFor="let dept of departments" [value]="dept.id">
+            {{ dept.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Designation</label>
+        <select class="form-select" formControlName="designationId">
+          <option [value]="null">Select Designation</option>
+          <option *ngFor="let desg of designations" [value]="desg.id">
+            {{ desg.title }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Hire Date</label>
+        <input type="date" class="form-control" formControlName="hireDate" />
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Salary</label>
+        <input type="number" class="form-control" formControlName="salary" />
+      </div>
+
+      <!-- User Account Group -->
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label">Username</label>
+          <input type="text" class="form-control" formControlName="username" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Role</label>
+          <select class="form-select" formControlName="role">
+            <option value="EMPLOYEE">Employee</option>
+            <option value="MANAGER">Manager</option>
+            <option value="ADMIN">Admin</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    (click)="activeModal.dismiss()"
+  >
+    Cancel
+  </button>
+  <button type="button" class="btn btn-primary" (click)="onSubmit()">
+    <!-- [disabled]="form.invalid"> -->
+    {{ employee ? "Update" : "Create" }}
+  </button>
+</div>

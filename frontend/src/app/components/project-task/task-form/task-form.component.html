@@ -1,0 +1,62 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Edit' : 'Create' }} Task</h2>
+  <button type="button" class="btn-close" (click)="activeModal.dismiss()"></button>
+  
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div class="row g-3">
+      <div class="col-md-8">
+        <label class="form-label">Task Title</label>
+        <input type="text" class="form-control" formControlName="title">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Priority</label>
+        <select class="form-select" formControlName="priority">
+          <option *ngFor="let prio of taskPriorities" [value]="prio">
+            {{ prio }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Start Date</label>
+        <input type="date" class="form-control" formControlName="startDate">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">End Date</label>
+        <input type="date" class="form-control" formControlName="endDate">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Assigned Employee</label>
+        <select class="form-select" formControlName="assignedEmployeeId">
+          <option *ngFor="let emp of employees" [value]="emp.id">
+            {{ emp.firstName }} {{ emp.lastName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Project</label>
+        <select class="form-select" formControlName="projectId">
+          <option *ngFor="let project of projects" [value]="project.id">
+            {{ project.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" formControlName="description" rows="3"></textarea>
+      </div>
+
+      <div class="col-12">
+        <button type="button" class="btn btn-primary" (click)="activeModal.dismiss()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="taskForm.invalid">
+          {{ isEditMode ? 'Update' : 'Create' }} Task
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h4>Generate Payroll</h4>
+    </div>
+    <div class="card-body">
+      <form (submit)="generatePayroll()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Pay Period Start</label>
+            <input type="date" class="form-control" 
+                   [(ngModel)]="payrollRequest.payPeriodStart" 
+                   name="startDate" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Pay Period End</label>
+            <input type="date" class="form-control" 
+                   [(ngModel)]="payrollRequest.payPeriodEnd" 
+                   name="endDate" required>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary" 
+                    [disabled]="!payrollRequest.payPeriodStart || !payrollRequest.payPeriodEnd">
+              Generate Payroll
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

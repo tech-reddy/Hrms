@@ -1,0 +1,48 @@
+<div class="container-fluid p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Designations</h2>
+    <button *ngIf="userRole == 'ADMIN'"class="btn btn-primary" (click)="openDesignationForm()">
+      <i class="bi bi-plus-lg"></i> Add Designation
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading" class="card shadow">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Title</th>
+              <th>Grade</th>
+              <th *ngIf="userRole == 'ADMIN'">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let desig of designations">
+              <td>{{ desig.title }}</td>
+              <td>{{ desig.grade }}</td>
+              <td *ngIf="userRole == 'ADMIN'">
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-outline-primary" 
+                          (click)="openDesignationForm(desig)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" 
+                          (click)="deleteDesignation(desig.id)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

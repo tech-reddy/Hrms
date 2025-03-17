@@ -1,0 +1,66 @@
+/* Simple hover scale animation for cards */
+// dashboard.component.scss
+.dashboard-container {
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+.metric-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  .icon-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    
+    i { color: white; }
+  }
+
+  &.metric-primary {
+    background: linear-gradient(45deg, #4e73df, #224abe);
+    color: white;
+    
+    .icon-circle { background: rgba(255,255,255,0.2); }
+  }
+
+  &.metric-success {
+    background: linear-gradient(45deg, #1cc88a, #13855c);
+    color: white;
+    
+    .icon-circle { background: rgba(255,255,255,0.2); }
+  }
+
+  &.metric-warning {
+    background: linear-gradient(45deg, #f6c23e, #dda20a);
+    color: white;
+    
+    .icon-circle { background: rgba(255,255,255,0.2); }
+  }
+
+  &.metric-danger {
+    background: linear-gradient(45deg, #e74a3b, #be2617);
+    color: white;
+    
+    .icon-circle { background: rgba(255,255,255,0.2); }
+  }
+}
+
+.chart-container {
+  height: 350px;
+}
+
+.hover-effect {
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
+}

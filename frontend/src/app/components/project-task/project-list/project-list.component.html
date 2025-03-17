@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between mb-3">
+    <h2>Projects</h2>
+    <a routerLink="/projects/new" class="btn btn-primary">New Project</a>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <input type="text" class="form-control" placeholder="Search projects..." 
+             [(ngModel)]="searchTerm" (input)="applyFilters()">
+    </div>
+    <div class="col-md-4">
+      <select class="form-select" [(ngModel)]="statusFilter" (change)="applyFilters()">
+        <option value="">All Statuses</option>
+        <option *ngFor="let status of projectStatuses" [value]="status">{{status}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="list-group">
+    <a *ngFor="let project of filteredProjects" 
+       [routerLink]="['/projects', project.id]"
+       class="list-group-item list-group-item-action">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h5>{{project.name}}</h5>
+          <small class="text-muted">
+            {{project.startDate | date}} - {{project.endDate | date}}
+          </small>
+          <span class="badge ms-2" [ngClass]="statusBadgeClass(project.status)">
+            {{project.status}}
+          </span>
+        </div>
+        <div>
+          <span class="text-muted me-3">Manager: {{project.manager.firstName}}</span>
+          <span class="text-muted">{{project.assignedEmployees.length}} members</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

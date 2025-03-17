@@ -1,0 +1,41 @@
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.badge {
+  &-LOW {
+    background-color: #6c757d;
+  }
+  &-MEDIUM {
+    background-color: #ffc107;
+    color: black;
+  }
+  &-HIGH {
+    background-color: #dc3545;
+  }
+  &-NOT_STARTED {
+    background-color: #6c757d;
+  }
+  &-IN_PROGRESS {
+    background-color: #0d6efd;
+  }
+  &-COMPLETED {
+    background-color: #198754;
+  }
+  &-BLOCKED {
+    background-color: #dc3545;
+  }
+}
+
+.table-hover tbody tr {
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #f8f9fa;
+  }
+}

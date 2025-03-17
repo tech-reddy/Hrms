@@ -1,0 +1,34 @@
+<!-- my-complaints.component.html -->
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>My complaits</h2>
+    <button class="btn btn-primary" (click)="openCreateComplaint()">
+      <i class="bi bi-plus-lg"></i> Create Complaint
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-4" *ngFor="let complaint of complaints">
+      <div class="card shadow">
+        <div class="card-header" [ngClass]="{
+          'bg-warning': complaint.status === 'OPEN',
+          'bg-info': complaint.status === 'IN_PROGRESS',
+          'bg-success': complaint.status === 'RESOLVED',
+          'bg-secondary': complaint.status === 'CLOSED'
+        }">
+          <h5 class="card-title text-white mb-0">
+            Status: {{ complaint.status }}
+          </h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ complaint.description }}</p>
+          <p *ngIf="complaint.response" class="text-muted">
+            <strong>Response:</strong> {{ complaint.response }}
+          </p>
+          <small class="text-muted">
+            Created: {{ complaint.createdAt | date:'medium' }}
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

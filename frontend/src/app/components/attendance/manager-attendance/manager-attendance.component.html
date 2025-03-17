@@ -1,0 +1,47 @@
+<!-- manager-attendance.component.html -->
+<div class="container py-5" @fadeInOut>
+  <div class="card shadow-lg animate__animated animate__fadeIn">
+    <div class="card-header bg-dark text-white">
+      <h4 class="mb-0">Employee Attendance Overview</h4>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <input type="date" class="form-control" [(ngModel)]="searchDate" (change)="filterByDate()">
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Employee</th>
+              <th>Date</th>
+              <th>Check In</th>
+              <th>Check Out</th>
+              <th>Total Hours</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let att of filteredAttendances" class="animate__animated animate__fadeIn">
+              <td>{{ att.employeeName}}</td>
+              <td>{{ att.date | date:'mediumDate' }}</td>
+              <td>{{ getTimeAsDate(att.checkIn) | date:'shortTime' }}</td>
+              <td>{{ getTimeAsDate(att.checkOut) | date:'shortTime' }}</td>
+              <td>
+                <span class="badge bg-primary rounded-pill">
+                  {{ att.totalHours || 0 }} hrs
+                </span>
+              </td>
+              <td>
+                <span *ngIf="!att.checkOut" class="badge bg-warning">Pending</span>
+                <span *ngIf="att.checkOut" class="badge bg-success">Completed</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <h2>Pending Leave Requests</h2>
+  
+  <div class="list-group">
+    <div *ngFor="let request of requests" class="list-group-item">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h5>{{ request.firstName }} - {{ request.leaveType }}</h5>
+          <p class="mb-1">
+            {{ request.startDate | date }} to {{ request.endDate | date }}
+          </p>
+          <small class="text-muted">Applied on {{ request.appliedDate | date }}</small>
+          <p *ngIf="request.reason" class="mt-2">{{ request.reason }}</p>
+        </div>
+        
+        <div class="btn-group">
+          <button class="btn btn-success btn-sm" 
+                  (click)="updateStatus(request.id, 'APPROVED')">
+            Approve
+          </button>
+          <button class="btn btn-danger btn-sm" 
+                  (click)="updateStatus(request.id, 'REJECTED')">
+            Reject
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

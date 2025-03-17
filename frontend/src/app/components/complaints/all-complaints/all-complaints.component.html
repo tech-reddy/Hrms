@@ -1,0 +1,78 @@
+<!-- all-complaints.component.html -->
+<div class="container mt-4">
+  <h3 class="mb-4">All Complaints</h3>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead class="table-dark">
+        <tr>
+  
+          <th>Description</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let complaint of complaints">
+          <td>{{ complaint.description }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'bg-warning': complaint.status === 'OPEN',
+              'bg-info': complaint.status === 'IN_PROGRESS',
+              'bg-success': complaint.status === 'RESOLVED',
+              'bg-secondary': complaint.status === 'CLOSED'
+            }">
+              {{ complaint.status }}
+            </span>
+          </td>
+          <td>{{ complaint.createdAt | date:'short' }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary" 
+                    (click)="selectComplaint(complaint)">
+              Manage
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Update Modal -->
+  <div class="modal fade" [class.show]="selectedComplaint" 
+       [style.display]="selectedComplaint ? 'block' : 'none'">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Complaint</h5>
+          <button type="button" class="btn-close" 
+                  (click)="selectedComplaint = undefined"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select class="form-select" [(ngModel)]="updateRequest.status">
+              <option *ngFor="let status of complaintStatuses" 
+                      [value]="status">
+                {{ status }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Response</label>
+            <textarea class="form-control" rows="4" 
+                      [(ngModel)]="updateRequest.response"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" 
+                  (click)="selectedComplaint = undefined">Cancel</button>
+          <button type="button" class="btn btn-primary" 
+                  (click)="updateComplaint()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade show" 
+       *ngIf="selectedComplaint" 
+       (click)="selectedComplaint = undefined"></div>
+</div>

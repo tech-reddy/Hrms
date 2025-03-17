@@ -1,0 +1,19 @@
+<!-- create-complaint.component.html -->
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h4>Create New Complaint</h4>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" 
+                    [(ngModel)]="complaintRequest.description" 
+                    name="description" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Complaint</button>
+      </form>
+    </div>
+  </div>
+</div>
