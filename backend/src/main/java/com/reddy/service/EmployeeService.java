@@ -173,9 +173,9 @@ public class EmployeeService {
             throw new ConflictException("Cannot delete employee with existing leave requests");
         }
 
-        if (taskRepo.existsByAssignedBy(employee)) {
-            throw new ConflictException("Cannot delete employee with assigned tasks");
-        }
+        // if (taskRepo.existsByAssignedBy(employee)) {
+        //     throw new ConflictException("Cannot delete employee with assigned tasks");
+        // }
 
         // Delete employee (User will be cascade-deleted if properly configured)
         employeeRepo.delete(employee);
